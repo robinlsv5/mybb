@@ -7,7 +7,7 @@
 /*
     Style of the div box.
 */
-div.box {
+div.report_view {
     position: relative;
     width: 200px;
     height: 200px;
@@ -17,7 +17,7 @@ div.box {
     margin: 5px;
 }
 
-div.box:hover {
+div.report_view:hover {
     cursor: hand;
     cursor: pointer;
     opacity: .9;
@@ -39,4 +39,13 @@ a.divLink {
     /*workaround to make clickable in IE */
     filter: alpha(opacity=0);
     /*workaround to make clickable in IE */
+}
+
+/*
+    Dialog for viewing the report
+ */
+
+#reportbox_dialog {
+    display: none;
+
 }

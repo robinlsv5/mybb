@@ -1,26 +1,18 @@
 
 <?php
+require("./playerreport/php/classes.php");
+require("./playerreport/php/sql_data.php");
+require("./playerreport/php/functions.php");
+
 ////// Connection initialisation /////
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "fearless_playerreport";
+
 //////////////////////////////////////
 /// Determine rank (player/admin)
 $_SESSION['IS_ADMIN'] = false;
 
-if($mybb->usergroup['cancp'])
-{
-	$_SESSION['IS_ADMIN'] = true;
+if($mybb->usergroup['cancp']) {
+    $_SESSION['IS_ADMIN'] = true;
 }
-//////////////////////////////////////
-/// Setup mysql connection to the DB. ($dbName)
-$conn = new mysqli($servername, $username, $password, $dbName);
-
-if ($conn->connect_error) {
-    die("Connection has failed: " . $conn->connect_error);
-}
-
 ?>
 
 
@@ -52,36 +44,7 @@ if ($conn->connect_error) {
 		?>
 		<div id="admin_center">
             <?php
-
-            $reportSql = "SELECT * FROM fearless_playerreports.reports";
-            $reportResult = $conn->query($reportSql);
-
-            if($reportResult->num_rows > 0)
-            {
-                while($row = $reportResult->fetch_assoc())
-                {
-                    $htmlPrint =
-                        '
-                            <div class="box">
-                                <p>'. $row["ID"] .'</p>
-                                <p>'. $row["report_timestamp"] .'</p>
-                                <p>'. $row["report_player_name"] .'</p>
-                                <p>'. $row["report_title"] .'</p>
-                                <p>'. $row["report_gameserver"] .'</p>
-                                <a href="#"><span></span></a>
-                            </div>
-                        
-                        ';
-
-                    echo $htmlPrint;
-                }
-            }
-            else
-            {
-                echo 'The SELECT query returned no results';
-            }
-
-            $conn->close();
+            getReports($conn);
             ?>
 		</div>
 		<?php
@@ -95,6 +58,17 @@ if ($conn->connect_error) {
 		<?php
 		}
 		?>
+
+        <input class="modal-state" id="modal-1" type="checkbox" />
+        <div class="modal">
+            <label class="modal__bg" for="modal-1"></label>
+            <div class="modal__inner">
+                <label class="modal__close" for="modal-1"></label>
+                <h2 id="report_title"></h2>
+                <p id="report_timestamp"></p>
+                <p id="report_description"></p>
+            </div>
+        </div>
 	</body>
 	
 	
