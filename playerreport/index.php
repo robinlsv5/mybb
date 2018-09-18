@@ -44,7 +44,15 @@ if($mybb->usergroup['cancp']) {
 		?>
 		<div id="admin_center">
             <?php
-            getReports($conn);
+            $report_array = getAllReports($conn);
+
+
+            echo '<div class="card-deck">';
+            foreach($report_array as $value)
+            {
+               echo $value->getReadablePanel();
+            }
+            echo '</div>';
             ?>
 		</div>
 		<?php
@@ -59,14 +67,25 @@ if($mybb->usergroup['cancp']) {
 		}
 		?>
 
-        <input class="modal-state" id="modal-1" type="checkbox" />
-        <div class="modal">
-            <label class="modal__bg" for="modal-1"></label>
-            <div class="modal__inner">
-                <label class="modal__close" for="modal-1"></label>
-                <h2 id="report_title"></h2>
-                <p id="report_timestamp"></p>
-                <p id="report_description"></p>
+
+
+        <!-- WIP: Modal for the showing of the report -->
+        <div class="modal fade" id="bootstrap-modal" role="dialog">
+
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">Bootstrap Dynamic Modal
+                            Content</h4>
+                    </div>
+                    <div id="report-modal"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
 	</body>

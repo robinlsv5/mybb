@@ -1,9 +1,22 @@
+alert('Just testing');
 $(document).ready(function () {
-        //Click on the report to view the report.
-        $(".report_view").click(function() {
-            $(".modal-state").prop('checked', true);
-            $(".modal-state").prop('checked', true);
-            return false;
-        });
+    alert('Just testing');
+        function loadReportModal() {
+            id = 1;
+            alert('Just testing');
+            var options = {
+                modal: true,
+                height: 300,
+                width: 500
+            };
+
+            $('#report-modal').load('./playerreport/php/report.php?id='.id,
+                function () {
+                    alert('Just testing');
+                    $('#bootstrap-modal').modal({
+                       show : true;
+                    });
+                });
+        }
 
 });
